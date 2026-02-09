@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿Quieres ser mi Valentine?</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  color: #e63946;
+}
+
+p {
+  color: #333;
+  font-size: 17px;
+}
+
+/* ===== CARRUSEL ===== */
+.carousel {
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+}
+
+
+.slides {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.slides img {
+  width: 100%;
+  max-height: 300px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ===== BOTONES ===== */
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 8px;
+}
+
+.yes {
+  background-color: #e63946;
+  color: white;
+}
+
+.no {
+  background-color: #ccc;
+  position: relative;
+}
+
+/* ===== MENSAJE FINAL ===== */
+.message {
+  display: none;
+  font-size: 20px;
+  color: #e63946;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+/* ===== CORAZONES ===== */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: float 4s linear forwards;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Hola amor 💕</h1>
+
+  <div class="carousel">
+    <div class="slides" id="slides">
+      <img src="images/1.jpeg">
+      <img src="images/2.jpeg">
+      <img src="images/3.jpeg">
+	  <img src="images/4.jpeg">
+      <img src="images/5.jpeg">
+      <img src="images/6.jpeg">
+    </div>
+  </div>
+
+  <p>
+    Cada momento contigo es mi favorito ✨  
+      y hay algo que quiero preguntarte…
+  </p>
+
+  <h2>¿Quieres ser mi Valentine? 💘</h2>
+
+  <button class="yes" onclick="yesClick()">Sí 💖</button>
+  <button class="no" id="noBtn">No 🙈</button>
+
+  <div class="message" id="message">
+    Sabía que dirías que sí 😏💘  
+	 Te amo  💕
+   
+  </div>
+</div>
+
+<script>
+/* ===== CARRUSEL AUTOMÁTICO ===== */
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+setInterval(() => {
+  index = (index + 1) % total;
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}, 2500);
+
+/* ===== BOTÓN NO QUE HUYE ===== */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* ===== CLICK EN SÍ ===== */
+function yesClick() {
+  document.getElementById("message").style.display = "block";
+  launchHearts();
+}
+
+/* ===== CORAZONES ===== */
+function launchHearts() {
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+}
+</script>
+
+</body>
+</html>
